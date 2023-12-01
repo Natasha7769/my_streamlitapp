@@ -57,22 +57,23 @@ c2.plotly_chart(fig,use_container_width=True)
 
 # 4. adjust layout
 t1,t2 = st.tabs(['Bivriate','Trivariate'])
-num_cols= df.select_dtype(include=np.number).columns.tolist()
+num_cols= df.select_dtypes(include=np.number).columns.tolist()
 with t1:
     c1,c2 = st.columns(2)
-    col1 =st.radio('Select the First Column for scatter plot', num_cols)
-    col2 = st.radio('Select the Second Column for scatter plot', num_cols)
+    col1 =c1.radio('Select the First Column for scatter plot', num_cols)
+    col2 = c2.radio('Select the Second Column for scatter plot', num_cols)
     fig = px.scatter(df,x=col1,y=col2,title=f'{col1} vs {col2}')
     st.plotly_chart(fig,use_container_width= True)
 with t2:
-    c1,c2,c3 = st.columns(2)
-    col1 =st.selectbox('Select the First Column for scatter plot', num_cols)
-    col2 = st.radio('Select the Second Column for scatter plot', num_cols)
-    fig = px.scatter(df,x=col1,y=col2,title=f'{col1} vs {col2}')
+    c1,c2,c3 = st.columns(3)
+    col1 =c1.selectbox('Select the First Column for 3d plot', num_cols)
+    col2 = c2.selectbox('Select the Second Column for 3d plot', num_cols)
+    col3 = c3.selectbox('Select the Third Column for 3d plot', num_cols)
+    fig = px.scatter_3d(df,x=col1,y=col2,z=col3,title=f'{col1} vs {col2} vs {col3}',height=700)
     st.plotly_chart(fig,use_container_width= True)
 
     
 
-# how to run teh app
+# how to run the app
 # open terminal and run:
 # streamlit run main.py
